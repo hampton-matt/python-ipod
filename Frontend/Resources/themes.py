@@ -9,8 +9,8 @@ class Theme:
 
 
 themes = {}
-themes["default"] = (Theme("default", "#000000", "#1DB954", 'Helvetica', 22, 16))
-themes["light"] = (Theme("light", "#FFFFFF", "#111111", "Helvetica", 22, 16))
+themes["default"] = (Theme("default", "#000000", "#1DB954", 'Helvetica', 16, 14))
+themes["light"] = (Theme("light", "#FFFFFF", "#111111", "Helvetica", 16, 14))
 
 def get_themes():
     return themes

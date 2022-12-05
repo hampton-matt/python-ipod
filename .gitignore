@@ -2,3 +2,4 @@
 settings.py
 cache
 *.pyc
+*.DS_Store
