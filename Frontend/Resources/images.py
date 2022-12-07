@@ -8,6 +8,7 @@ IMG_ARROW = "img_arrow.png"
 IMG_PAUSE = "img_pause.png"
 IMG_PLAY = "img_play.png"
 IMG_TIMELINE = "img_timeline.png"
+IMG_TIMELINE_FILL = "img_timeline_fill.png"
 IMG_WIFI = "img_wifi.png"
 IMG_NO_WIFI = "img_no_wifi.png"
 IMG_BLANK = "img_space.png"
@@ -52,7 +53,7 @@ def resize(image, width=None, height=None):
 
 # Debugging
 if __name__ == "__main__":
-   test = get_image(IMG_ARROW, "#FFF")
+   test = get_image(IMG_TIMELINE_FILL, "#FFF")
    test.show()
    
 if __name__ == "don't run":

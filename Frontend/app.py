@@ -1,8 +1,13 @@
+if __name__ == "__main__":
+    print("🔴 Root import only module")
+    exit()
+
 import tkinter as tk
-import Resources.themes as themes
-import Modules.menubar as menu
-from Modules.listitem import ListItem
-from Modules.scrollbar import Scrollbar
+import Frontend.Resources.themes as themes
+import Frontend.Modules.menubar as menu
+from Frontend.Modules.listpage import Listpage
+from Frontend.Modules.nowplaying import NowPlaying
+from Frontend.Modules.scrollbar import Scrollbar
 
 class App(tk.Tk):
     # INIT
@@ -49,60 +54,31 @@ class App(tk.Tk):
         # Calculate Content size and row height
         self.content.update()
         _height = self.content.winfo_height()
-        _row_height=int(_height/self.pagesize)
+        _width = self.content.winfo_width()
 
-        # Scrollbar
-        self.scrollbar = Scrollbar(self.content, self.theme, _height, self.scale)
-        self.scrollbar.grid(column=1, row=0, rowspan=self.pagesize, sticky="nse")
+        self.page = NowPlaying(self.content, self.theme, self.pagesize, _height, _width, self.scale)
+        self.page.grid(row=0, column=0, sticky="nsew")
         
-
-        rows = []
-        for i in range(self.pagesize):
-            rows.append(ListItem(self.content, self.theme, self.scale, _row_height))
-            rows[i].grid(row=i, column=0,sticky="nwe")
-            if i == 1:
-                rows[i].selected(True)
     
     # Setters
     def refresh(self):
         if (self.queue_refresh > 0):
             self.container.destroy()
-            self.init_ui(None, pagesize=self.pagesize)
+            self.init_ui(None)
             self.queue_refresh -= 1
 
 
     def set_theme(self, theme):
         self.theme = themes.get_theme(theme)
+
+    def resize_manual(self, width, height):
+        self.width = width
+        self.height = height
+        self.geometry("%sx%s" % (self.width, self.height))
+        self.queue_refresh = 2
         
     def resize(self, event):
         if(hasattr(event.widget, "is_root") and event.widget.is_root and (self.width != event.width or self.height != event.height)):
             self.width = event.width
             self.height = event.height
             self.queue_refresh = 2
-
-    def show_scroll(self, show: bool):
-        if show:
-            self.scrollbar.grid(column=1, row=0, rowspan=self.pagesize, sticky="nse")
-        else:
-            self.scrollbar.grid_forget()
-
-
-# Debugging
-if __name__ == "__main__":
-    
-    app = App(320, 240, "dark")
-    def loop():
-        app.refresh()
-        app.after(1000, loop)
-
-
-    def test_scroll():
-        app.refresh()
-        total = int(input("Total: "))
-        app.scrollbar.set_size(total, int(input("Pagesize: ")))
-        app.scrollbar.set_position(total, int(input("Index: ")))
-        app.after(1000, test_scroll)
-
-    app.bind("<Configure>", app.resize)
-    app.after(5000, loop)
-    app.mainloop()

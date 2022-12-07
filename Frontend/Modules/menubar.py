@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk
-from Resources.themes import Theme
-from Resources.images import *
+from Frontend.Resources.themes import Theme
+from Frontend.Resources.images import *
 
 class MenuBar(tk.Frame):
     # INIT

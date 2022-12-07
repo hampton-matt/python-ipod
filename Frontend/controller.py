@@ -1,4 +1,4 @@
-import app
+import run
 
-app = app.App()
+run = run.App()
 
