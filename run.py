@@ -11,10 +11,18 @@ if __name__ != "__main__":
 
 from Debugging.debugger import debugging
 from Frontend.app import App
+from Interaction.keyboard import interact
 
-    
+def onKeyPress(event):
+    c = event.keycode
+    interact(c, None)
+
+
+
+
 app = App(320, 240, "default")
 
 app.bind("<Configure>", app.resize)
+app.bind('<KeyPress>', onKeyPress)
 app.after(1000, debugging(app))
 app.mainloop()

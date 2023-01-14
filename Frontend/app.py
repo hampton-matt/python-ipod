@@ -7,7 +7,6 @@ import Frontend.Resources.themes as themes
 import Frontend.Modules.menubar as menu
 from Frontend.Modules.listpage import Listpage
 from Frontend.Modules.nowplaying import NowPlaying
-from Frontend.Modules.scrollbar import Scrollbar
 
 class App(tk.Tk):
     # INIT
@@ -56,10 +55,19 @@ class App(tk.Tk):
         _height = self.content.winfo_height()
         _width = self.content.winfo_width()
 
-        self.page = NowPlaying(self.content, self.theme, self.pagesize, _height, _width, self.scale)
-        self.page.grid(row=0, column=0, sticky="nsew")
-        
+        self.frames = {}
+
+        for F in (NowPlaying, Listpage):
+            frame = F(self.content, self.theme, self.pagesize, _height, _width, self.scale)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.set_page(Listpage)
     
+    def set_page(self, page):
+        self.page = self.frames[page]
+        self.page.tkraise()
+
     # Setters
     def refresh(self):
         if (self.queue_refresh > 0):

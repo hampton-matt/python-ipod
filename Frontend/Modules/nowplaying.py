@@ -17,7 +17,6 @@ class NowPlaying(tk.Frame):
         p = (theme.font, int(theme.p*scale))
         _padding = int(scale*4)
         _width = int(width - (_padding*2))
-        print(scale)
         self.position = tk.Label(self, text="15 of 32", bg=theme.bg, fg=theme.fg, font=p, anchor='w')
         self.position.grid(row=0, column=0, sticky='nwe', pady=(int(scale*5),0))  
 

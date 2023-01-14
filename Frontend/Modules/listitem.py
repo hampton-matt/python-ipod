@@ -38,3 +38,7 @@ class ListItem(tk.Frame):
             self.right.configure(bg=self.theme.bg)
             self.left.configure(bg=self.theme.fg, fg=self.theme.bg)
             self.is_selected = False
+
+
+    def set_text(self, text):
+        self.left.config(text=text)

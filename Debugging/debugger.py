@@ -5,10 +5,10 @@ descriptions = {
     "exit" : "closes the application",
 }
 
-def exit(app):
+def exit(app, args):
     app.destroy()
 
-def help(app):
+def help(app, args):
     print("\nHelp:")
     for c in descriptions:
         tabs = "\t"
@@ -33,9 +33,15 @@ for c in frontend.commands:
 
 def console_input(app):
     _input = input("python-iPod >> ")
-    _func = commands.get(_input)
+    _split = _input.split(" ")
+    _args = None
+    _func = commands.get(_split[0])
+    
+    if len(_split) > 1:
+        list.pop(_split, 0)
+        _args = _split
     if _func is not None:
-        _func(app)
+        _func(app, _args)
     else:
         print(f"\'{_input}\' is not a recognised command\nRun \'help\' to see a list of commands")
 

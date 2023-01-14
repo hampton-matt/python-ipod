@@ -5,7 +5,7 @@ from Frontend.Modules.listitem import ListItem
 from Frontend.Modules.scrollbar import Scrollbar
 
 class Listpage(tk.Frame):
-    def __init__(self, parent, theme: Theme, pagesize, height, scale):  
+    def __init__(self, parent, theme: Theme, pagesize, height, width, scale):  
         tk.Frame.__init__(self, parent)
 
         self.configure(bg=theme.bg)
@@ -40,4 +40,9 @@ class Listpage(tk.Frame):
         else:
             self.scrollbar.grid_forget()
 
-
+    def set_content(self, content, offset):
+        if len(content) < self.pagesize:
+            return
+        for i in range(self.pagesize):
+            self.rows[i].set_text(content[i])
+        self.offset = offset

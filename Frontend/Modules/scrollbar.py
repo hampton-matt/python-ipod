@@ -30,7 +30,6 @@ class Scrollbar(tk.Frame):
     def set_position(self, total, index):
         percentage = (index) / (total-1)
         position = round(percentage * self.scrollsize, 2)
-        print(position)
         boundaries = max(.005, min(self.scrollsize-.005, position))
         self.postion = boundaries
         self.inner.place(in_=self.outer, relx=.5, rely=self.postion, anchor='n', relheight=self.scrollsize, relwidth=0.90)
